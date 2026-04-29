@@ -1,6 +1,6 @@
 # 💖 AskMom Recipes
 
-> A Mother's Day project: tell it what's in your kitchen and get 3 healthy recipes, grounded in real USDA nutrition data and a bit of food history.
+> A Mother's Day project...tell it what's in your kitchen and get 3 healthy recipes, grounded in real USDA nutrition data and a bit of food history.
 
 Snap a photo of your groceries (or type what you have), pick a dietary preference and AskMom suggests 3 recipes with honest nutrition notes and a one-line origin story for each dish.
 
@@ -16,7 +16,7 @@ Built on AWS with Strands, Amazon Bedrock (Claude 3 Haiku), Lambda, API Gateway,
 - [Project layout](#project-layout)
 - [Tech stack](#tech-stack)
 - [Prerequisites](#prerequisites)
-- [Quick start: deploy your own](#quick-start-deploy-your-own)
+- [Quick start...deploy your own](#quick-start-deploy-your-own)
 - [Local development](#local-development)
 - [Updating after deploy](#updating-after-deploy)
 - [Security notes](#security-notes)
@@ -81,7 +81,7 @@ The separation between **LLM planning** (extract ingredients + suggest recipes) 
        │                           │
        │                 ┌─────────┴─────────┐
        │                 │ Strands Agent     │
-       │                 │ tools:            │
+       │                 │ tools...           │
        │                 │ - extract (image) │
        │                 │ - extract (text)  │
        │                 │ - suggest recipes │
@@ -103,7 +103,7 @@ The separation between **LLM planning** (extract ingredients + suggest recipes) 
 ### Typed ingredients, no photo
 
 1. Browser sends `POST /ingredients` with `{text, preferences}`.
-2. Lambda builds a Strands agent with 3 tools: text extractor, image extractor, recipe suggester.
+2. Lambda builds a Strands agent with 3 tools... text extractor, image extractor, recipe suggester.
 3. The agent calls `extract_ingredients_from_text` to normalize the user's input.
 4. The agent calls `suggest_recipes` once with the clean ingredient list and preference. Returns 3 raw recipes.
 5. Lambda enriches each recipe **in pure Python**:
@@ -113,7 +113,7 @@ The separation between **LLM planning** (extract ingredients + suggest recipes) 
 6. Result saved to DynamoDB with a 24-hour TTL.
 7. Browser renders 3 pink recipe cards.
 
-Typical latency: **~15-20 seconds**.
+Typical latency...**~15-20 seconds**.
 
 ### With a photo
 
@@ -232,7 +232,7 @@ The Lambda reads this parameter once per cold start and caches it in memory. If 
 
 ---
 
-## Quick start: deploy your own
+## Quick start...deploy your own
 
 Clone this repo, then from the `ask_moms_recipe/` directory:
 
@@ -282,7 +282,7 @@ Edit `web/config.js` and replace `API_BASE_URL` with **your own** `ApiUrl` from 
 
 ```js
 window.ASKMOM_CONFIG = {
-  API_BASE_URL: "https://xxxxxxxx.execute-api.us-east-1.amazonaws.com",
+  API_BASE_URL..."https://xxxxxxxx.execute-api.us-east-1.amazonaws.com",
 };
 ```
 
@@ -296,12 +296,12 @@ make deploy
 This syncs `web/` to your S3 bucket and invalidates CloudFront. At the end you'll see:
 
 ```
-🌸 Live at: https://xxxxxxxx.cloudfront.net
+🌸 Live at...https://xxxxxxxx.cloudfront.net
 ```
 
 Open that URL. Give it a spin.
 
-### Fast-iteration alternative: skip CloudFront
+### Fast-iteration alternative...skip CloudFront
 
 The first CloudFront deploy is the slow one. If you're iterating and want a ~2-minute deploy instead, skip CloudFront with a context flag:
 
@@ -355,7 +355,7 @@ cd agent
 .venv/bin/python -m pytest tests/ -v
 ```
 
-Tests are offline — no Bedrock, no network. They verify imports, the curated origin lookup, the text ingredient parser, and handler routing.
+Tests are offline — no Bedrock, no network. They verify imports, the curated origin lookup, the text ingredient parser and handler routing.
 
 ---
 
@@ -373,7 +373,7 @@ cd infra && make deploy
 cd web && make deploy
 ```
 
-Either Makefile does the right thing: infra rebundles and updates Lambda, web syncs to S3 and invalidates CloudFront.
+Either Makefile does the right thing...infra rebundles and updates Lambda, web syncs to S3 and invalidates CloudFront.
 
 ---
 
@@ -382,7 +382,7 @@ Either Makefile does the right thing: infra rebundles and updates Lambda, web sy
 - **Both S3 buckets are private.** All four `PublicAccessBlock` flags are set to `true` on each bucket. Web traffic reaches the web bucket only through CloudFront via Origin Access Control (OAC). Uploads only via short-lived pre-signed URLs issued by Lambda.
 - **HTTPS-only.** Both buckets deny non-HTTPS requests at the policy level. CloudFront redirects HTTP to HTTPS.
 - **No secrets in code.** The USDA key lives in SSM Parameter Store as a SecureString and is fetched at cold start. No keys in `.env`, no keys in the CDK code, no keys in the Lambda code.
-- **IAM is scoped.** The Lambda role can invoke only the one Haiku model ARN, read only the one SSM parameter, read/write the one DynamoDB table, and read/put on the uploads bucket. Nothing else.
+- **IAM is scoped.** The Lambda role can invoke only the one Haiku model ARN, read only the one SSM parameter, read/write the one DynamoDB table and read/put on the uploads bucket. Nothing else.
 - **CORS is open by default.** The HTTP API allows `*` so readers can clone this repo and have it work immediately. For a production deploy, tighten `allow_origins` in `infra/stacks/askmom_stack.py` to just your CloudFront domain.
 - **Session TTL is 24 hours.** DynamoDB deletes expired items within ~48h of the TTL time. No sensitive data is stored in sessions.
 
@@ -392,15 +392,15 @@ Either Makefile does the right thing: infra rebundles and updates Lambda, web sy
 
 Ballpark for personal / demo use in `us-east-1`:
 
-- **Bedrock Claude Haiku**: ~$0.0001 per recipe request (2 calls, a few thousand tokens). 1,000 requests ≈ $0.10.
-- **Lambda**: first 1M requests free, then $0.20 per million. Effectively free for personal use.
-- **API Gateway HTTP API**: $1 per million requests.
-- **DynamoDB**: on-demand, $1.25 per million writes. Personal use ≈ free tier.
-- **S3**: a few cents a month for static site + uploads.
-- **CloudFront**: ~$0.085 per GB transferred, first 1 TB/month. Free tier covers personal use.
-- **USDA API**: free.
+- **Bedrock Claude Haiku**...~$0.0001 per recipe request (2 calls, a few thousand tokens). 1,000 requests ≈ $0.10.
+- **Lambda**...first 1M requests free, then $0.20 per million. Effectively free for personal use.
+- **API Gateway HTTP API**...$1 per million requests.
+- **DynamoDB**...on-demand, $1.25 per million writes. Personal use ≈ free tier.
+- **S3**...a few cents a month for static site + uploads.
+- **CloudFront**...~$0.085 per GB transferred, first 1 TB/month. Free tier covers personal use.
+- **USDA API**...free.
 
-Total for a personal deployment answering a few dozen requests a month: **under $1**.
+Total for a personal deployment answering a few dozen requests a month...**under $1**.
 
 ---
 
@@ -411,7 +411,7 @@ cd infra
 make destroy
 ```
 
-This removes the Lambda, API Gateway, DynamoDB table, both S3 buckets (including all objects, because `auto_delete_objects=True`), the CloudFront distribution, and all IAM roles and policies. The CDK bootstrap stack (`CDKToolkit`) stays — that's shared with any other CDK apps in the account.
+This removes the Lambda, API Gateway, DynamoDB table, both S3 buckets (including all objects, because `auto_delete_objects=True`), the CloudFront distribution and all IAM roles and policies. The CDK bootstrap stack (`CDKToolkit`) stays — that's shared with any other CDK apps in the account.
 
 You may also want to delete the SSM parameter manually:
 
@@ -425,15 +425,15 @@ aws ssm delete-parameter --name /askmom/usda-api-key --region us-east-1
 
 **`Unable to resolve AWS account` during deploy.** Your shell session lost AWS creds (common with short-lived SSO tokens). Refresh and retry. `aws sts get-caller-identity` should return your ARN cleanly.
 
-**`Failed to publish asset: getaddrinfo ENOTFOUND`.** Transient DNS flake while uploading Lambda assets to the CDK bootstrap bucket. Retry the deploy. Adding `--asset-parallelism=false` helps on flaky networks.
+**`Failed to publish asset...getaddrinfo ENOTFOUND`.** Transient DNS flake while uploading Lambda assets to the CDK bootstrap bucket. Retry the deploy. Adding `--asset-parallelism=false` helps on flaky networks.
 
 **API returns HTTP 503 "Service Unavailable" after ~29 seconds.** API Gateway HTTP API has a hard 29-second integration timeout. If you changed the agent to do heavy additional work, consider moving enrichment back into pure Python (see the existing design) or switching to REST API (which supports 30-minute timeouts).
 
-**Frontend shows old content after deploy.** CloudFront caches aggressively. `make deploy` runs an invalidation, but propagation takes ~30-60 seconds globally. Hard refresh (Cmd+Shift+R / Ctrl+F5) often helps. To manually re-invalidate: `cd infra && make invalidate`.
+**Frontend shows old content after deploy.** CloudFront caches aggressively. `make deploy` runs an invalidation, but propagation takes ~30-60 seconds globally. Hard refresh (Cmd+Shift+R / Ctrl+F5) often helps. To manually re-invalidate...`cd infra && make invalidate`.
 
-**`AccessDeniedException` on `bedrock:InvokeModelWithResponseStream`.** You deployed an older version of the stack before this permission was added. Redeploy: `cd infra && make deploy`.
+**`AccessDeniedException` on `bedrock:InvokeModelWithResponseStream`.** You deployed an older version of the stack before this permission was added. Redeploy...`cd infra && make deploy`.
 
-**`Unknown output type: IQoJ...` from any AWS CLI command.** Your `~/.aws/config` has been corrupted — likely by pasting a session token at a shell prompt that got interpreted as a config line. Open `~/.aws/config` and replace the `output = IQoJ...` line with `output = json`.
+**`Unknown output type...IQoJ...` from any AWS CLI command.** Your `~/.aws/config` has been corrupted — likely by pasting a session token at a shell prompt that got interpreted as a config line. Open `~/.aws/config` and replace the `output = IQoJ...` line with `output = json`.
 
 **Node version warning from jsii.** CDK bundles a JS runtime via jsii and warns on untested Node versions (25+). Harmless. The Makefile silences it with `JSII_SILENCE_WARNING_UNTESTED_NODE_VERSION=1`.
 
