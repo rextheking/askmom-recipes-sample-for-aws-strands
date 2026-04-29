@@ -1,0 +1,278 @@
+:root {
+  --bg: #fff5f8;
+  --bg-accent: #ffe4ec;
+  --card: #ffffff;
+  --ink: #3a1f2a;
+  --muted: #8a6b76;
+  --accent: #e75480;
+  --accent-dark: #c94072;
+  --accent-ink: #ffffff;
+  --border: #f6ccd9;
+  --shadow: 0 4px 18px rgba(231, 84, 128, 0.12);
+  --shadow-soft: 0 2px 8px rgba(231, 84, 128, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: linear-gradient(180deg, var(--bg) 0%, var(--bg-accent) 100%);
+  background-attachment: fixed;
+  color: var(--ink);
+  line-height: 1.5;
+  min-height: 100vh;
+}
+
+.hero {
+  text-align: center;
+  padding: 3rem 1rem 1.5rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.mothers-day-banner {
+  background: var(--accent);
+  color: var(--accent-ink);
+  padding: 0.4rem 1rem;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  box-shadow: var(--shadow-soft);
+}
+
+.hero h1 {
+  margin: 0;
+  font-size: 2.75rem;
+  color: var(--accent-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.hero .heart {
+  display: inline-block;
+  color: var(--accent);
+  animation: heartbeat 1.6s ease-in-out infinite;
+  transform-origin: center;
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  20% { transform: scale(1.15); }
+  40% { transform: scale(1); }
+  60% { transform: scale(1.1); }
+}
+
+.tagline {
+  color: var(--muted);
+  margin-top: 0.5rem;
+  font-size: 1.05rem;
+}
+
+.tagline-mom {
+  color: var(--accent-dark);
+  font-weight: 600;
+  margin-top: 0.25rem;
+}
+
+main {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.card {
+  background: var(--card);
+  border-radius: 16px;
+  padding: 1.75rem;
+  box-shadow: var(--shadow);
+  margin-bottom: 1.5rem;
+  border: 1px solid var(--border);
+}
+
+.label {
+  display: block;
+  margin-top: 1rem;
+  margin-bottom: 0.35rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+textarea,
+select {
+  width: 100%;
+  padding: 0.7rem;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  font-size: 1rem;
+  font-family: inherit;
+  background: #fffafc;
+  color: var(--ink);
+}
+
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(231, 84, 128, 0.15);
+}
+
+.primary {
+  margin-top: 1.3rem;
+  width: 100%;
+  padding: 0.9rem;
+  background: var(--accent);
+  color: var(--accent-ink);
+  border: 0;
+  border-radius: 10px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+  box-shadow: var(--shadow-soft);
+}
+
+.primary:hover:not(:disabled) {
+  background: var(--accent-dark);
+}
+
+.primary:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.primary:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.drop-zone {
+  border: 2px dashed var(--border);
+  border-radius: 12px;
+  padding: 1.75rem;
+  text-align: center;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+  background: #fffafc;
+}
+
+.drop-zone:hover,
+.drop-zone.dragover {
+  background: #ffeaf1;
+  border-color: var(--accent);
+}
+
+#photo-preview img {
+  max-width: 100%;
+  max-height: 200px;
+  border-radius: 10px;
+}
+
+#photo-remove {
+  margin-top: 0.5rem;
+  padding: 0.3rem 0.8rem;
+  background: transparent;
+  color: var(--accent-dark);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.status {
+  background: #ffeaf1;
+  border: 1px solid var(--border);
+  padding: 1rem;
+  border-radius: 10px;
+  margin-bottom: 1.5rem;
+  color: var(--accent-dark);
+  font-weight: 500;
+}
+
+.results h2 {
+  margin-top: 1rem;
+  color: var(--accent-dark);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.25rem;
+}
+
+.recipe-card {
+  background: var(--card);
+  border-radius: 14px;
+  padding: 1.25rem;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.recipe-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 22px rgba(231, 84, 128, 0.18);
+}
+
+.recipe-card h3 {
+  margin: 0 0 0.35rem;
+  color: var(--accent-dark);
+}
+
+.recipe-card .hook {
+  color: var(--muted);
+  margin-top: 0;
+  font-style: italic;
+}
+
+.recipe-card ol {
+  padding-left: 1.2rem;
+}
+
+.recipe-card li {
+  margin-bottom: 0.25rem;
+}
+
+.refine {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+  color: var(--muted);
+}
+
+.refine button {
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--accent-dark);
+  border-radius: 999px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+
+.refine button:hover {
+  background: var(--bg-accent);
+}
+
+footer {
+  text-align: center;
+  color: var(--muted);
+  padding: 2rem;
+}
+
+footer .heart {
+  color: var(--accent);
+  display: inline-block;
+  animation: heartbeat 1.6s ease-in-out infinite;
+}

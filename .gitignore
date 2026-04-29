@@ -1,0 +1,34 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.pytest_cache/
+.venv/
+venv/
+env/
+
+# Environment
+.env
+.env.local
+
+# CDK
+cdk.out/
+cdk.context.json
+*.swp
+
+# Node / web build artifacts
+node_modules/
+dist/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editors
+.idea/
+*.iml
+
+# Local test artifacts
+*.log
+test_images/local_*

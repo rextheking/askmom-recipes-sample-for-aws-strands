@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AskMom Recipes 💕</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="hero">
+      <span class="mothers-day-banner">💐 Happy Mother's Day</span>
+      <h1>
+        Welcome to AskMom Recipes
+        <span class="heart" aria-hidden="true">💖</span>
+      </h1>
+      <p class="tagline">What's in your kitchen?</p>
+      <p class="tagline-mom">
+        Snap a photo, type what you have, or both and let AskMom whip up something healthy.
+      </p>
+    </header>
+
+    <main>
+      <section id="input-card" class="card">
+        <div id="drop-zone" class="drop-zone">
+          <p>📷 Drop a photo of your groceries here, or click to upload</p>
+          <input type="file" id="photo-input" accept="image/*" hidden />
+          <div id="photo-preview" hidden>
+            <img id="photo-preview-img" alt="Preview" />
+            <button id="photo-remove" type="button">Remove</button>
+          </div>
+        </div>
+
+        <label for="text-input" class="label">
+          Have anything else? Type it here.
+        </label>
+        <textarea
+          id="text-input"
+          placeholder="e.g., garlic, olive oil, a lemon"
+          rows="2"
+        ></textarea>
+
+        <label for="preferences" class="label">Dietary preference</label>
+        <select id="preferences">
+          <option value="none">No restriction</option>
+          <option value="vegetarian">Vegetarian</option>
+          <option value="low_sodium">Low sodium</option>
+          <option value="diabetic_friendly">Diabetic-friendly</option>
+          <option value="gluten_free">Gluten-free</option>
+        </select>
+
+        <button id="submit-btn" class="primary">Suggest recipes 💕</button>
+      </section>
+
+      <section id="status" class="status" hidden></section>
+
+      <section id="results" class="results" hidden>
+        <h2>Here's what Mom would make 🌸</h2>
+        <div id="recipe-grid" class="grid"></div>
+
+        <div id="refine-bar" class="refine">
+          <span>Want to tweak?</span>
+          <button data-refine="make it healthier">Make it healthier</button>
+          <button data-refine="something quicker">Something quicker</button>
+          <button data-refine="fewer ingredients">Fewer ingredients</button>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>
+        Made with <span class="heart" aria-hidden="true">💖</span> for Mother's Day
+      </p>
+    </footer>
+
+    <script src="./config.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>
