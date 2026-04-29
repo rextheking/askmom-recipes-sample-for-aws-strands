@@ -2,9 +2,9 @@
 
 > A Mother's Day project: tell it what's in your kitchen and get 3 healthy recipes, grounded in real USDA nutrition data and a bit of food history.
 
-Snap a photo of your groceries (or type what you have), pick a dietary preference, and AskMom suggests 3 recipes with honest nutrition notes and a one-line origin story for each dish.
+Snap a photo of your groceries (or type what you have), pick a dietary preference and AskMom suggests 3 recipes with honest nutrition notes and a one-line origin story for each dish.
 
-Built on AWS with Strands, Amazon Bedrock (Claude 3 Haiku), Lambda, API Gateway, S3, DynamoDB, CloudFront, and the USDA FoodData Central API. Infrastructure is CDK (Python). Frontend is plain HTML / CSS / JS.
+Built on AWS with Strands, Amazon Bedrock (Claude 3 Haiku), Lambda, API Gateway, S3, DynamoDB, CloudFront and the USDA FoodData Central API. Infrastructure is CDK (Python). Frontend is plain HTML / CSS / JS.
 
 ---
 
@@ -29,16 +29,16 @@ Built on AWS with Strands, Amazon Bedrock (Claude 3 Haiku), Lambda, API Gateway,
 ## What it does
 
 - Accepts a photo of groceries, typed ingredient text, or both.
-- Applies a dietary preference: no restriction, vegetarian, low sodium, diabetic-friendly, or gluten-free.
+- Applies a dietary preference... no restriction, vegetarian, low sodium, diabetic-friendly, or gluten-free.
 - Returns 3 recipe cards, each with:
   - Name, a one-line hook, estimated time
   - Ingredients you already have vs. what you'd need to grab
   - Simple step-by-step instructions
   - A grounded **"why it's good for you"** note pulled from USDA FoodData Central
   - A one-line **origin note** from a small curated dataset (no hallucinated country-of-origin facts)
-- Supports follow-up instructions: "make it healthier," "something quicker," "fewer ingredients."
+- Supports follow-up instructions... "make it healthier," "something quicker," "fewer ingredients."
 
-The separation between **LLM planning** (extract ingredients + suggest recipes) and **deterministic enrichment** (nutrition + origin + formatting) is a core design choice. It keeps the system fast (2 Bedrock round-trips instead of 10+), cheap, and prevents the model from inventing numbers or history.
+The separation between **LLM planning** (extract ingredients + suggest recipes) and **deterministic enrichment** (nutrition + origin + formatting) is a core design choice. It keeps the system fast (2 Bedrock round-trips instead of 10+), cheap and prevents the model from inventing numbers or history.
 
 ---
 
@@ -450,5 +450,9 @@ Should print your key. If not, re-run the `aws ssm put-parameter` command from t
 - [Strands Agents](https://strandsagents.com) for the agent framework.
 - Amazon Bedrock + Anthropic Claude 3 Haiku for the model.
 - [USDA FoodData Central](https://fdc.nal.usda.gov/api-guide.html) for the free, excellent nutrition API.
+
+## License
+
+MIT — see [LICENSE](./LICENSE).
 
 Built with 💖 for Mother's Day.
