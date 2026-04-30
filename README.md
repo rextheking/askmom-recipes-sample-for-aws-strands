@@ -17,7 +17,6 @@ Built on AWS with Strands, Amazon Bedrock (Claude 3 Haiku), Lambda, API Gateway,
 - [Tech stack](#tech-stack)
 - [Prerequisites](#prerequisites)
 - [Quick start: deploy your own](#quick-start-deploy-your-own)
-- [Local development](#local-development)
 - [Updating after deploy](#updating-after-deploy)
 - [Security notes](#security-notes)
 - [Costs](#costs)
@@ -313,49 +312,6 @@ cdk deploy --app ".venv/bin/python3 app.py" \
 ```
 
 Then test the frontend locally with `cd web && make serve` pointing at your deployed API. Turn CloudFront back on for the real launch.
-
----
-
-## Local development
-
-### Run the agent locally (no AWS infra needed except Bedrock)
-
-```bash
-cd agent
-python3.12 -m venv .venv
-.venv/bin/pip install -r requirements.txt
-
-cp ../.env.example ../.env
-# Edit ../.env — at minimum set AWS_REGION and USDA_API_KEY if you want nutrition notes.
-
-.venv/bin/python local_run.py
-```
-
-Default run uses hardcoded sample input ("chicken, spinach, lemon, rice, garlic, olive oil", low sodium). Override with flags:
-
-```bash
-.venv/bin/python local_run.py --text "pasta, tomatoes, basil" --preferences vegetarian
-```
-
-### Run the frontend locally against the deployed API
-
-```bash
-cd web
-make serve
-# http://localhost:8080
-```
-
-`config.js` still points at the deployed API Gateway URL, so this is the fastest way to iterate on HTML/CSS/JS without touching CloudFront.
-
-### Run the tests
-
-```bash
-cd agent
-.venv/bin/pip install pytest
-.venv/bin/python -m pytest tests/ -v
-```
-
-Tests are offline — no Bedrock, no network. They verify imports, the curated origin lookup, the text ingredient parser, and handler routing.
 
 ---
 
