@@ -215,7 +215,7 @@ Nutrition notes ("why it's good for you") are grounded in real USDA data, not in
      --region us-east-1
    ```
 
-The Lambda reads this parameter once per cold start and caches it in memory. If you skip this step, everything still works — the app just omits the nutrition blurbs.
+The Lambda reads this parameter once per cold start and caches it in memory. If you skip this step, everything still works, the app just omits the nutrition blurbs.
 
 ### Local tools
 
@@ -227,7 +227,7 @@ The Lambda reads this parameter once per cold start and caches it in memory. If 
 | AWS CLI | v2 | `brew install awscli` or [AWS docs](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) |
 | Make | any | preinstalled on macOS/Linux |
 
-**Docker is not required** — Lambda bundling runs locally via `pip`.
+**Docker is not required** Lambda bundling runs locally via `pip`.
 
 ---
 
@@ -262,7 +262,7 @@ Follow the [USDA section](#usda-fooddata-central-api-key) above to put your key 
 make deploy
 ```
 
-Takes **~5-7 minutes** on a fresh account — most of that is CloudFront propagating the distribution globally. Subsequent deploys without CloudFront changes are ~1-2 minutes.
+Takes **~5-7 minutes** on a fresh account, most of that is CloudFront propagating the distribution globally. Subsequent deploys without CloudFront changes are ~1-2 minutes.
 
 When it finishes you'll see outputs like:
 
@@ -367,7 +367,7 @@ cd infra
 make destroy
 ```
 
-This removes the Lambda, API Gateway, DynamoDB table, both S3 buckets (including all objects, because `auto_delete_objects=True`), the CloudFront distribution, and all IAM roles and policies. The CDK bootstrap stack (`CDKToolkit`) stays — that's shared with any other CDK apps in the account.
+This removes the Lambda, API Gateway, DynamoDB table, both S3 buckets (including all objects, because `auto_delete_objects=True`), the CloudFront distribution, and all IAM roles and policies. The CDK bootstrap stack (`CDKToolkit`) stays, that's shared with any other CDK apps in the account.
 
 You may also want to delete the SSM parameter manually:
 
@@ -383,13 +383,13 @@ aws ssm delete-parameter --name /askmom/usda-api-key --region us-east-1
 
 **`Failed to publish asset: getaddrinfo ENOTFOUND`.** Transient DNS flake while uploading Lambda assets to the CDK bootstrap bucket. Retry the deploy. Adding `--asset-parallelism=false` helps on flaky networks.
 
-**API returns HTTP 503 "Service Unavailable" after ~29 seconds.** API Gateway HTTP API has a hard 29-second integration timeout. If you changed the agent to do heavy additional work, consider moving enrichment back into pure Python (see the existing design) or switching to REST API (which supports 30-minute timeouts).
+**API returns HTTP 503 "Service Unavailable" after ~29 seconds.** API Gateway HTTP API has a hard 29 second integration timeout. If you changed the agent to do heavy additional work, consider moving enrichment back into pure Python (see the existing design) or switching to REST API (which supports 30-minute timeouts).
 
 **Frontend shows old content after deploy.** CloudFront caches aggressively. `make deploy` runs an invalidation, but propagation takes ~30-60 seconds globally. Hard refresh (Cmd+Shift+R / Ctrl+F5) often helps. To manually re-invalidate: `cd infra && make invalidate`.
 
 **`AccessDeniedException` on `bedrock:InvokeModelWithResponseStream`.** You deployed an older version of the stack before this permission was added. Redeploy: `cd infra && make deploy`.
 
-**`Unknown output type: IQoJ...` from any AWS CLI command.** Your `~/.aws/config` has been corrupted — likely by pasting a session token at a shell prompt that got interpreted as a config line. Open `~/.aws/config` and replace the `output = IQoJ...` line with `output = json`.
+**`Unknown output type: IQoJ...` from any AWS CLI command.** Your `~/.aws/config` has been corrupted, likely by pasting a session token at a shell prompt that got interpreted as a config line. Open `~/.aws/config` and replace the `output = IQoJ...` line with `output = json`.
 
 **Node version warning from jsii.** CDK bundles a JS runtime via jsii and warns on untested Node versions (25+). Harmless. The Makefile silences it with `JSII_SILENCE_WARNING_UNTESTED_NODE_VERSION=1`.
 
